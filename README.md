@@ -2,6 +2,9 @@
 
 Compact HTML5 TicTacToe optimized for **240×320** CloudPhone screens — play vs computer or local pass and play, choose **3×3 / 4×4 / 5×5** boards, switch themes, and enjoy lightweight sound effects.
 
+<img width="268" height="627" alt="Screenshot From 2026-07-12 14-52-52" src="https://github.com/user-attachments/assets/e601ff61-e465-49e9-b134-02a45ce90b45" />
+
+
 #### Add TicTacToe Widget to CloudPhone
 
 Widget name: TicTacToe
