@@ -48,30 +48,6 @@ https://tasmon.github.io/tictactoe-cloudphone/
 
 ---
 
-#### Package as Android WebView APK
-1. Create a minimal Android project with a single `WebView` activity.
-2. Put the game files in `assets/www` and load `file:///android_asset/www/index.html`.
-3. Set `targetSdk` and `minSdk` according to your CloudPhone capabilities.
-4. Build with Android Studio and sign the APK for installation.
-
----
-
-#### Customize
-- **Themes**: Edit CSS variables in `style.css` or add `.theme-...` classes.
-- **Board rules**: Change `winLen` logic in `app.js` to alter required in-a-row.
-- **AI**: Adjust `difficultyDepth` values or replace heuristic in `app.js`.
-- **Sounds**: Replace WebAudio with audio files and update `playSound` to use `Audio` objects.
-- **Assets**: Add images or sprites to `assets/` and reference them in CSS or DOM.
-
----
-
-#### Contributing
-- **Fork** the repo, create a feature branch, commit changes, and open a pull request.
-- Keep changes small and focused. Include screenshots for UI changes and note device tested.
-- Add tests or manual test steps for logic or AI changes.
-
----
-
 #### Troubleshooting
 - **Audio blocked**: Some browsers require a user gesture before WebAudio plays. Tap the screen to enable sound.
 - **Slow AI on 5×5**: Lower difficulty or reduce minimax depth for better performance on low-end devices.
