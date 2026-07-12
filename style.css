@@ -1,0 +1,75 @@
+:root{
+  --bg:#f2f2f2;
+  --accent:#222;
+  --cell-bg:#fff;
+  --x-color:#d32f2f;
+  --o-color:#1976d2;
+  --board-padding:8px;
+  --font: "Helvetica Neue", Arial, sans-serif;
+  --app-w:240px;
+  --app-h:320px;
+}
+
+/* Theme overrides */
+.theme-classic { --bg:#f7f3ea; --accent:#3b3b3b; --cell-bg:#fff; --x-color:#b71c1c; --o-color:#0d47a1; }
+.theme-neon   { --bg:#0b0f1a; --accent:#e0f7fa; --cell-bg:#071126; --x-color:#00ffea; --o-color:#ff00d4; }
+.theme-wood   { --bg:#efe6dd; --accent:#5b3a29; --cell-bg:#f6efe8; --x-color:#6b2e1f; --o-color:#2b5a3a; }
+.theme-space  { --bg:#050814; --accent:#cfe8ff; --cell-bg:#071029; --x-color:#ffcc00; --o-color:#66ccff; }
+.theme-minimal{ --bg:#ffffff; --accent:#222; --cell-bg:#ffffff; --x-color:#111; --o-color:#777; }
+
+html,body{height:100%;margin:0;font-family:var(--font);background:var(--bg);color:var(--accent);-webkit-user-select:none;user-select:none}
+#app{width:var(--app-w);height:var(--app-h);margin:0 auto;display:flex;flex-direction:column;border:1px solid rgba(0,0,0,0.08);box-sizing:border-box;overflow:hidden}
+#topbar{padding:6px;background:rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:6px}
+#status{font-size:12px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#controls{display:flex;gap:4px;justify-content:center;align-items:center;flex-wrap:wrap}
+#controls select,#controls button{font-size:11px;padding:4px;border-radius:4px;background:rgba(255,255,255,0.02);color:var(--accent);border:1px solid rgba(0,0,0,0.06)}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:4px;box-sizing:border-box}
+#board{
+  width:calc(var(--app-w) - 2 * var(--board-padding));
+  height:calc(var(--app-w) - 2 * var(--board-padding));
+  padding:var(--board-padding);
+  box-sizing:border-box;
+  display:grid;
+  gap:6px;
+  background:transparent;
+  border-radius:8px;
+}
+
+.cell{
+  background:var(--cell-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  border-radius:6px;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06) inset;
+  transition:transform 0.08s ease, box-shadow 0.12s ease;
+}
+.cell:active{ transform:scale(0.98); }
+.cell.disabled{opacity:0.7;pointer-events:none}
+.mark-x{color:var(--x-color);font-size:1.6em}
+.mark-o{color:var(--o-color);font-size:1.6em}
+
+#footer{padding:6px;font-size:12px;display:flex;justify-content:space-between;align-items:center}
+#score{font-weight:600}
+
+/* Responsive cell sizing for 3/4/5 boards */
+.board-3 { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+.board-4 { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+.board-5 { grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(5, 1fr); }
+
+/* Make marks larger on small boards */
+.board-3 .cell { font-size:34px; }
+.board-4 .cell { font-size:26px; }
+.board-5 .cell { font-size:20px; }
+
+/* Win highlight */
+.cell.win { box-shadow: 0 0 10px rgba(255,215,0,0.95); }
+
+/* Small adjustments for very small screens */
+@media (max-width:240px){
+  #app{transform:scale(1);transform-origin:top left}
+}
+
