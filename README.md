@@ -34,24 +34,8 @@ cd tictactoe-cloudphone
 # Python 3
 python -m http.server 8000
 # then open http://localhost:8000
+
 ```
-
----
-
-#### Publish with GitHub Pages
-1. Push your code to `main` branch on GitHub.
-2. In the repository Settings go to Pages and set the source to the `main` branch root.
-3. After a minute the site will be available at:
-```
-https://tasmon.github.io/tictactoe-cloudphone/
-```
-
----
-
-#### Troubleshooting
-- **Audio blocked**: Some browsers require a user gesture before WebAudio plays. Tap the screen to enable sound.
-- **Slow AI on 5×5**: Lower difficulty or reduce minimax depth for better performance on low-end devices.
-- **Layout issues**: Ensure the browser viewport is set to `width=240, height=320` or use the provided CSS variables.
 
 ---
 
