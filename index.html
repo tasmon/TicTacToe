@@ -1,7 +1,7 @@
 <!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <!-- Force CloudPhone viewport -->
   <meta name="viewport" content="width=240, height=320, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>TicTacToe CloudPhone</title>
   <link rel="stylesheet" href="style.css" />
@@ -9,37 +9,23 @@
 <body>
   <div id="app">
     <header id="topbar">
-      <div id="status">Tap a square to start</div>
+      <div id="status">New game</div>
       <div id="controls">
         <select id="mode">
-          <option value="single">Play vs Computer</option>
+          <option value="single">Vs Computer</option>
           <option value="local">Local Multiplayer</option>
         </select>
-
-        <label for="gridSize">Grid:</label>
         <select id="gridSize">
           <option value="3" selected>3 × 3</option>
           <option value="4">4 × 4</option>
           <option value="5">5 × 5</option>
-          <option value="6">6 × 6</option>
         </select>
-
         <select id="difficulty">
           <option value="1">Easy</option>
           <option value="3" selected>Normal</option>
           <option value="6">Hard</option>
         </select>
-
-        <select id="theme">
-          <option value="classic">Classic</option>
-          <option value="neon">Neon</option>
-          <option value="wood">Wood</option>
-          <option value="space">Space</option>
-          <option value="minimal">Minimal</option>
-        </select>
-
         <button id="newBtn">New</button>
-        <button id="muteBtn">Mute</button>
       </div>
     </header>
 
@@ -51,7 +37,6 @@
       <div id="score">X: 0  O: 0  Draws: 0</div>
     </footer>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
