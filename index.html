@@ -38,10 +38,30 @@
 
     <main>
       <div id="board"></div>
+      <!-- Help & About overlays -->
+      <div id="helpPage" class="overlay hidden">
+        <h3>Help</h3>
+        <p>Goal: Get 3 in a row (horizontal, vertical, or diagonal).</p>
+        <ul>
+          <li>Tap a cell or use keypad (2/4/6/8 to move, 5 to drop).</li>
+          <li>Select grid size, theme, and difficulty from menu.</li>
+          <li>Modes: Vs Computer or Local Multiplayer.</li>
+        </ul>
+        <button onclick="closeOverlay('helpPage')">Close</button>
+      </div>
+      <div id="aboutPage" class="overlay hidden">
+        <h3>About</h3>
+        <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam</p>
+        <button onclick="closeOverlay('aboutPage')">Close</button>
+      </div>
     </main>
 
     <footer id="footer">
       <div id="score">X: 0  O: 0  Draws: 0</div>
+      <div id="nav">
+        <button onclick="openOverlay('helpPage')">Help</button>
+        <button onclick="openOverlay('aboutPage')">About</button>
+      </div>
     </footer>
   </div>
   <script src="app.js"></script>
