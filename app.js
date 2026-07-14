@@ -6,41 +6,36 @@ let gameOver = false;
 let scores = {X:0,O:0,draw:0};
 let mode = 'single';
 let difficultyDepth = 3;
-let muted = false;
 
-// DOM references
 const statusEl = document.getElementById('status');
 const boardEl = document.getElementById('board');
 const scoreEl = document.getElementById('score');
 const modeSel = document.getElementById('mode');
 const gridSel = document.getElementById('gridSize');
 const diffSel = document.getElementById('difficulty');
-const themeSel = document.getElementById('theme');
 const newBtn = document.getElementById('newBtn');
-const muteBtn = document.getElementById('muteBtn');
 
-// Initialize
 function init(){
   attachControls();
   setSize(parseInt(gridSel.value,10));
   resetGame();
 }
+
 function attachControls(){
   newBtn.addEventListener('click', resetGame);
   modeSel.addEventListener('change', e=>{ mode=e.target.value; resetGame(); });
   gridSel.addEventListener('change', e=>{ setSize(parseInt(e.target.value,10)); resetGame(); });
   diffSel.addEventListener('change', e=> difficultyDepth=parseInt(e.target.value,10));
-  themeSel.addEventListener('change', e=> applyTheme(e.target.value));
-  muteBtn.addEventListener('click', ()=>{ muted=!muted; muteBtn.textContent=muted?'Unmute':'Mute'; });
 }
+
 function setSize(n){
-  N = n;
-  boardEl.style.gridTemplateColumns = `repeat(${N},1fr)`;
-  boardEl.style.gridTemplateRows = `repeat(${N},1fr)`;
-  // NEW: update CSS variable for scaling
+  N=n;
+  boardEl.style.gridTemplateColumns=`repeat(${N},1fr)`;
+  boardEl.style.gridTemplateRows=`repeat(${N},1fr)`;
   document.documentElement.style.setProperty('--grid-size', N);
   createBoard();
 }
+
 function createBoard(){
   board=Array(N*N).fill(null);
   boardEl.innerHTML='';
@@ -52,6 +47,7 @@ function createBoard(){
     boardEl.appendChild(c);
   }
 }
+
 function onCellClick(e){
   const idx=parseInt(e.currentTarget.dataset.index,10);
   if(gameOver||board[idx])return;
@@ -64,19 +60,21 @@ function onCellClick(e){
     },200);
   }
 }
+
 function makeMove(idx,who){
   board[idx]=who;
   updateUI();
   const winner=checkWinner(board);
   if(winner){
     gameOver=true;
-    if(winner==='draw'){ status('Draw'); scores.draw++; playSound('draw'); }
-    else{ status(`${winner} wins`); scores[winner]++; playSound('win'); }
+    if(winner==='draw'){ status('Draw'); scores.draw++; }
+    else{ status(`${winner} wins`); scores[winner]++; }
     updateScore();
     return;
   }
   if(mode==='local'){ turn=(turn==='X')?'O':'X'; status(`${turn}'s turn`); }
 }
+
 function updateUI(){
   const cells=boardEl.children;
   for(let i=0;i<cells.length;i++){
@@ -87,12 +85,14 @@ function updateUI(){
     cells[i].classList.toggle('mark-o',v==='O');
   }
 }
+
 function resetGame(){
   board=Array(N*N).fill(null);
   turn='X'; gameOver=false;
   updateUI();
   status('New game');
 }
+
 function status(txt){ statusEl.textContent=txt; }
 function updateScore(){ scoreEl.textContent=`X: ${scores.X}  O: ${scores.O}  Draws: ${scores.draw}`; }
 
@@ -107,6 +107,8 @@ function checkWinner(b){
   if(b.every(Boolean))return'draw';
   return null;
 }
+
+// Generate all possible 3-in-a-row lines for NxN
 function generateLines(N,L){
   const lines=[];
   // rows
@@ -154,6 +156,7 @@ function bestMove(boardState, aiPlayer, maxDepth){
   }
   return move;
 }
+
 function minimax(bState,depth,isMax,ai,hu,maxDepth){
   const winner=checkWinner(bState);
   if(winner===ai)return 100-depth;
@@ -179,6 +182,7 @@ function minimax(bState,depth,isMax,ai,hu,maxDepth){
     return best;
   }
 }
+
 function heuristic(bState,ai,hu){
   let score=0;
   const lines=generateLines(N,3);
@@ -191,26 +195,6 @@ function heuristic(bState,ai,hu){
   }
   return score;
 }
-
-// Simple WebAudio tones
-const audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-function playSound(type){
-  if(muted)return;
-  try{
-    const now=audioCtx.currentTime;
-    const o=audioCtx.createOscillator();
-    const g=audioCtx.createGain();
-    o.connect(g); g.connect(audioCtx.destination);
-    if(type==='place'){ o.frequency.value=880; g.gain.value=0.06; o.type='sine'; }
-    else if(type==='win'){ o.frequency.value=440; g.gain.value=0.12; o.type='triangle'; }
-    else if(type==='draw'){ o.frequency.value=260; g.gain.value=0.06; o.type='sine'; }
-    else if(type==='start'){ o.frequency.value=660; g.gain.value=0.05; o.type='sawtooth'; }
-    o.start(now); o.stop(now+0.12);
-  }catch(e){}
-}
-
-// Theme
-function applyTheme(name){ document.documentElement.className='theme-'+name; }
 
 // Start
 init();
