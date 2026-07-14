@@ -7,28 +7,30 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app" aria-live="polite">
+  <div id="app">
     <header id="topbar">
       <div id="status">Tap a square to start</div>
       <div id="controls">
-        <select id="mode" title="Game mode">
+        <select id="mode">
           <option value="single">Play vs Computer</option>
           <option value="local">Local Multiplayer</option>
         </select>
 
-        <select id="size" title="Board size">
+        <label for="gridSize">Grid:</label>
+        <select id="gridSize">
           <option value="3" selected>3 × 3</option>
           <option value="4">4 × 4</option>
           <option value="5">5 × 5</option>
+          <option value="6">6 × 6</option>
         </select>
 
-        <select id="difficulty" title="AI difficulty">
+        <select id="difficulty">
           <option value="1">Easy</option>
           <option value="3" selected>Normal</option>
           <option value="6">Hard</option>
         </select>
 
-        <select id="theme" title="Theme">
+        <select id="theme">
           <option value="classic">Classic</option>
           <option value="neon">Neon</option>
           <option value="wood">Wood</option>
@@ -36,13 +38,13 @@
           <option value="minimal">Minimal</option>
         </select>
 
-        <button id="newBtn" title="New game">New</button>
-        <button id="muteBtn" title="Mute sound">Mute</button>
+        <button id="newBtn">New</button>
+        <button id="muteBtn">Mute</button>
       </div>
     </header>
 
     <main>
-      <div id="board" role="grid" aria-label="Tic Tac Toe board"></div>
+      <div id="board"></div>
     </main>
 
     <footer id="footer">
@@ -53,4 +55,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
