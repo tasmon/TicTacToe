@@ -34,9 +34,11 @@ function attachControls(){
   muteBtn.addEventListener('click', ()=>{ muted=!muted; muteBtn.textContent=muted?'Unmute':'Mute'; });
 }
 function setSize(n){
-  N=n;
-  boardEl.style.gridTemplateColumns=`repeat(${N},1fr)`;
-  boardEl.style.gridTemplateRows=`repeat(${N},1fr)`;
+  N = n;
+  boardEl.style.gridTemplateColumns = `repeat(${N},1fr)`;
+  boardEl.style.gridTemplateRows = `repeat(${N},1fr)`;
+  // NEW: update CSS variable for scaling
+  document.documentElement.style.setProperty('--grid-size', N);
   createBoard();
 }
 function createBoard(){
