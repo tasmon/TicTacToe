@@ -16,7 +16,7 @@ html, body {
   background: var(--bg);
   font-family: "Roboto", Arial, sans-serif;
   color: var(--accent);
-  overflow: hidden; /* no scroll */
+  overflow: hidden;
 }
 
 #app {
@@ -31,19 +31,18 @@ html, body {
 }
 
 #topbar {
-  padding: 2px 4px; /* slimmer */
+  padding: 2px 4px;
   background: var(--primary);
   color: #fff;
   font-size: 11px;
   text-align: center;
 }
-#status { margin-bottom: 2px; }
-
 #controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2px;
+  margin-top: 2px;
 }
 #controls select, #controls button {
   font-size: 10px;
@@ -56,7 +55,7 @@ html, body {
 }
 
 main {
-  flex: 1; /* board fills remaining space */
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,10 +77,10 @@ main {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: calc(180px / var(--grid-size)); /* auto scale */
+  font-size: calc(160px / var(--grid-size));
   border-radius: 4px;
   box-shadow: var(--shadow);
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  transition: transform 0.1s ease;
 }
 .cell:active { transform: scale(0.95); }
 .cell.disabled { opacity: 0.6; }
