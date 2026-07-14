@@ -1,4 +1,4 @@
-// TicTacToe CloudPhone — classic 3-in-a-row with selectable grid size
+// TicTacToe CloudPhone — classic 3-in-a-row with selectable grid size, themes, keypad control, help/about
 let N = 3; // grid size
 let board = [];
 let turn = 'X';
@@ -6,6 +6,7 @@ let gameOver = false;
 let scores = {X:0,O:0,draw:0};
 let mode = 'single';
 let difficultyDepth = 3;
+let selectedIndex = 0; // for keypad navigation
 
 const statusEl = document.getElementById('status');
 const boardEl = document.getElementById('board');
@@ -13,12 +14,14 @@ const scoreEl = document.getElementById('score');
 const modeSel = document.getElementById('mode');
 const gridSel = document.getElementById('gridSize');
 const diffSel = document.getElementById('difficulty');
+const themeSel = document.getElementById('theme');
 const newBtn = document.getElementById('newBtn');
 
 function init(){
   attachControls();
   setSize(parseInt(gridSel.value,10));
   resetGame();
+  document.addEventListener('keydown', handleKeypad);
 }
 
 function attachControls(){
@@ -26,6 +29,7 @@ function attachControls(){
   modeSel.addEventListener('change', e=>{ mode=e.target.value; resetGame(); });
   gridSel.addEventListener('change', e=>{ setSize(parseInt(e.target.value,10)); resetGame(); });
   diffSel.addEventListener('change', e=> difficultyDepth=parseInt(e.target.value,10));
+  themeSel.addEventListener('change', e=> applyTheme(e.target.value));
 }
 
 function setSize(n){
@@ -43,16 +47,42 @@ function createBoard(){
     const c=document.createElement('div');
     c.className='cell';
     c.dataset.index=i;
-    c.addEventListener('click',onCellClick);
+    c.addEventListener('click',()=>makeMove(i,turn));
     boardEl.appendChild(c);
+  }
+  selectedIndex=0;
+  highlightSelected();
+}
+
+function handleKeypad(e){
+  if(gameOver) return;
+  const key=e.key;
+  if(key==='2'){ moveSelection(-N); }      // up
+  else if(key==='8'){ moveSelection(N); }  // down
+  else if(key==='4'){ moveSelection(-1); } // left
+  else if(key==='6'){ moveSelection(1); }  // right
+  else if(key==='5'){ onCellClickKeypad(); } // drop
+}
+
+function moveSelection(delta){
+  const newIndex=selectedIndex+delta;
+  if(newIndex>=0 && newIndex<board.length){
+    selectedIndex=newIndex;
+    highlightSelected();
   }
 }
 
-function onCellClick(e){
-  const idx=parseInt(e.currentTarget.dataset.index,10);
-  if(gameOver||board[idx])return;
-  if(mode==='local'){ makeMove(idx,turn); return; }
-  makeMove(idx,'X');
+function highlightSelected(){
+  const cells=boardEl.children;
+  for(let i=0;i<cells.length;i++){
+    cells[i].classList.toggle('selected',i===selectedIndex);
+  }
+}
+
+function onCellClickKeypad(){
+  if(board[selectedIndex]||gameOver) return;
+  if(mode==='local'){ makeMove(selectedIndex,turn); return; }
+  makeMove(selectedIndex,'X');
   if(!gameOver){
     setTimeout(()=>{
       const ai=bestMove(board.slice(),'O',difficultyDepth);
@@ -62,6 +92,7 @@ function onCellClick(e){
 }
 
 function makeMove(idx,who){
+  if(board[idx]||gameOver) return;
   board[idx]=who;
   updateUI();
   const winner=checkWinner(board);
@@ -84,6 +115,7 @@ function updateUI(){
     cells[i].classList.toggle('mark-x',v==='X');
     cells[i].classList.toggle('mark-o',v==='O');
   }
+  highlightSelected();
 }
 
 function resetGame(){
@@ -194,6 +226,17 @@ function heuristic(bState,ai,hu){
     if(aiCount===0&&huCount>0)score-=huCount;
   }
   return score;
+}
+
+// Theme
+function applyTheme(name){ document.documentElement.className='theme-'+name; }
+
+// Overlay controls
+function openOverlay(id){
+  document.getElementById(id).classList.remove('hidden');
+}
+function closeOverlay(id){
+  document.getElementById(id).classList.add('hidden');
 }
 
 // Start
