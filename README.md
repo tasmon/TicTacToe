@@ -13,7 +13,7 @@ Features include:
 1. Go to [CloudPhone Developer Page](https://www.cloudfone.com/my).  
 2. Select **Add Widget**.  
 3. Paste this Start URL:  
-   `https://tasmon.github.io/tictactoe-cloudphone/index.html`  
+   `https://tasmon.github.io/TicTacToe`  
 4. Upload icons if required.  
 5. Save and refresh — **TicTacToe** will appear on your CloudPhone.
 
