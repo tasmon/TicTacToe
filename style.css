@@ -10,6 +10,13 @@
   --shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* Themes */
+.theme-classic { --bg:#fafafa; --primary:#1976d2; --x-color:#e53935; --o-color:#43a047; }
+.theme-neon   { --bg:#0b0f1a; --primary:#00ffea; --x-color:#ff00d4; --o-color:#00ffea; }
+.theme-wood   { --bg:#efe6dd; --primary:#5b3a29; --x-color:#6b2e1f; --o-color:#2b5a3a; }
+.theme-space  { --bg:#050814; --primary:#66ccff; --x-color:#ffcc00; --o-color:#66ccff; }
+.theme-minimal{ --bg:#ffffff; --primary:#222; --x-color:#111; --o-color:#777; }
+
 html, body {
   margin: 0;
   height: 100%;
@@ -87,6 +94,8 @@ main {
 
 .mark-x { color: var(--x-color); }
 .mark-o { color: var(--o-color); }
+
+.cell.selected { outline: 2px solid var(--primary); }
 
 #footer {
   padding: 2px;
