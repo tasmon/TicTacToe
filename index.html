@@ -12,45 +12,51 @@
     <div id="homePage" class="page">
       <h2>TicTacToe</h2>
       <div class="menu-grid">
-        <button onclick="openPage('newGamePage')">New Game</button>
-        <button onclick="openPage('settingsPage')">Settings</button>
-        <button onclick="openPage('helpPage')">Help</button>
-        <button onclick="openPage('aboutPage')">About</button>
+        <button onclick="openPage('newGamePage')">🎮 New Game</button>
+        <button onclick="openPage('settingsPage')">⚙️ Settings</button>
+        <button onclick="openPage('helpPage')">❓ Help</button>
+        <button onclick="openPage('aboutPage')">ℹ️ About</button>
       </div>
     </div>
 
     <!-- New Game Page -->
     <div id="newGamePage" class="page hidden">
       <h3>Start New Game</h3>
-      <label>Mode:</label>
-      <select id="mode">
-        <option value="single">Vs Computer</option>
-        <option value="local">Vs Player</option>
-      </select>
-      <label>Grid Size:</label>
-      <select id="gridSize">
-        <option value="3" selected>3 × 3</option>
-        <option value="4">4 × 4</option>
-        <option value="5">5 × 5</option>
-      </select>
-      <button onclick="startGame()">Start</button>
-      <button onclick="openPage('homePage')">Back</button>
+      <div class="form-card">
+        <label>Mode:</label>
+        <select id="mode">
+          <option value="single">Vs Computer</option>
+          <option value="local">Vs Player</option>
+        </select>
+      </div>
+      <div class="form-card">
+        <label>Grid Size:</label>
+        <select id="gridSize">
+          <option value="3" selected>3 × 3</option>
+          <option value="4">4 × 4</option>
+          <option value="5">5 × 5</option>
+        </select>
+      </div>
+      <button class="primary" onclick="startGame()">Start</button>
+      <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
     <!-- Settings Page -->
     <div id="settingsPage" class="page hidden">
       <h3>Settings</h3>
-      <label>Theme:</label>
-      <select id="theme" onchange="applyTheme(this.value)">
-        <option value="classic">Classic</option>
-        <option value="neon">Neon</option>
-        <option value="wood">Wood</option>
-        <option value="space">Space</option>
-        <option value="minimal">Minimal</option>
-      </select>
+      <div class="form-card">
+        <label>Theme:</label>
+        <select id="theme" onchange="applyTheme(this.value)">
+          <option value="classic">Classic</option>
+          <option value="neon">Neon</option>
+          <option value="wood">Wood</option>
+          <option value="space">Space</option>
+          <option value="minimal">Minimal</option>
+        </select>
+      </div>
       <h4>About</h4>
       <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam<br/>Optimized for 240×320 viewport.</p>
-      <button onclick="openPage('homePage')">Back</button>
+      <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
     <!-- Help Page -->
@@ -63,15 +69,15 @@
         <li>Keypad: 2=Up, 8=Down, 4=Left, 6=Right, 5=Drop</li>
       </ul>
       <p>Modes: Vs Computer or Local Multiplayer.</p>
-      <button onclick="openPage('homePage')">Back</button>
+      <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
     <!-- About Page -->
     <div id="aboutPage" class="page hidden">
       <h3>About</h3>
-      <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam</p>
-      <p>Optimized for 240×320 CloudPhone viewport.</p>
-      <button onclick="openPage('homePage')">Back</button>
+      <p>TicTacToe for CloudPhone<br/>Version 2.0.1</p>
+      <p>Developed by Tasmon Islam</p>
+      <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
     <!-- Game Page -->
@@ -79,7 +85,10 @@
       <div id="status">New game</div>
       <div id="board"></div>
       <div id="score">X: 0  O: 0  Draws: 0</div>
-      <button onclick="openPage('homePage')">Exit</button>
+      <div class="actions">
+        <button class="primary" onclick="resetGame()">Play Again</button>
+        <button class="secondary" onclick="openPage('homePage')">Exit</button>
+      </div>
     </div>
   </div>
   <script src="app.js"></script>
