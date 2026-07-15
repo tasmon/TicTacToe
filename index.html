@@ -21,7 +21,7 @@
 
     <!-- New Game Page -->
     <div id="newGamePage" class="page hidden">
-      <h3>Start New Game</h3>
+      <h3>Select Mode</h3>
       <div class="form-card">
         <label>Mode:</label>
         <select id="mode">
@@ -29,16 +29,10 @@
           <option value="local">Vs Player</option>
         </select>
       </div>
-      <div class="form-card">
-        <label>Grid Size:</label>
-        <select id="gridSize">
-          <option value="3" selected>3 × 3</option>
-          <option value="4">4 × 4</option>
-          <option value="5">5 × 5</option>
-        </select>
+      <div class="actions">
+        <button class="primary" onclick="startGame()">Start</button>
+        <button class="secondary" onclick="openPage('homePage')">Back</button>
       </div>
-      <button class="primary" onclick="startGame()">Start</button>
-      <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
     <!-- Settings Page -->
@@ -54,8 +48,22 @@
           <option value="minimal">Minimal</option>
         </select>
       </div>
-      <h4>About</h4>
-      <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam<br/>Optimized for 240×320 viewport.</p>
+      <div class="form-card">
+        <label>Difficulty (Vs Computer):</label>
+        <select id="difficulty">
+          <option value="1">Easy</option>
+          <option value="3" selected>Normal</option>
+          <option value="6">Hard</option>
+        </select>
+      </div>
+      <div class="form-card">
+        <label>Grid Size:</label>
+        <select id="gridSize">
+          <option value="3" selected>3 × 3</option>
+          <option value="4">4 × 4</option>
+          <option value="5">5 × 5</option>
+        </select>
+      </div>
       <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
 
@@ -75,7 +83,7 @@
     <!-- About Page -->
     <div id="aboutPage" class="page hidden">
       <h3>About</h3>
-      <p>TicTacToe for CloudPhone<br/>Version 2.0.1</p>
+      <p>TicTacToe for CloudPhone<br/>Version 2.0.2</p>
       <p>Developed by Tasmon Islam</p>
       <button class="secondary" onclick="openPage('homePage')">Back</button>
     </div>
@@ -85,7 +93,7 @@
       <div id="status">New game</div>
       <div id="board"></div>
       <div id="score">X: 0  O: 0  Draws: 0</div>
-      <div class="actions">
+      <div class="actions bottom">
         <button class="primary" onclick="resetGame()">Play Again</button>
         <button class="secondary" onclick="openPage('homePage')">Exit</button>
       </div>
