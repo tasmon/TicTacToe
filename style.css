@@ -37,7 +37,6 @@ html, body {
   box-sizing:border-box; 
   display:flex; 
   flex-direction:column; 
-  justify-content:flex-start; 
 }
 .hidden { display:none; }
 
@@ -142,6 +141,17 @@ button.secondary { background: #eee; color: var(--accent); }
   text-align:center;
   font-size:12px;
   margin:4px 0;
+}
+
+/* Content area for help/about/settings so Back button stays visible */
+.page .content {
+  flex:1;
+  overflow-y:auto;
+  font-size:12px;
+  margin-bottom:8px;
+}
+.page button.secondary {
+  margin-top:auto; /* anchor Back button at bottom */
 }
 
 /* Polished themes */
