@@ -8,61 +8,79 @@
 </head>
 <body>
   <div id="app">
-    <header id="topbar">
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+      <h2>TicTacToe</h2>
+      <div class="menu-grid">
+        <button onclick="openPage('newGamePage')">New Game</button>
+        <button onclick="openPage('settingsPage')">Settings</button>
+        <button onclick="openPage('helpPage')">Help</button>
+        <button onclick="openPage('aboutPage')">About</button>
+      </div>
+    </div>
+
+    <!-- New Game Page -->
+    <div id="newGamePage" class="page hidden">
+      <h3>Start New Game</h3>
+      <label>Mode:</label>
+      <select id="mode">
+        <option value="single">Vs Computer</option>
+        <option value="local">Vs Player</option>
+      </select>
+      <label>Grid Size:</label>
+      <select id="gridSize">
+        <option value="3" selected>3 × 3</option>
+        <option value="4">4 × 4</option>
+        <option value="5">5 × 5</option>
+      </select>
+      <button onclick="startGame()">Start</button>
+      <button onclick="openPage('homePage')">Back</button>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settingsPage" class="page hidden">
+      <h3>Settings</h3>
+      <label>Theme:</label>
+      <select id="theme" onchange="applyTheme(this.value)">
+        <option value="classic">Classic</option>
+        <option value="neon">Neon</option>
+        <option value="wood">Wood</option>
+        <option value="space">Space</option>
+        <option value="minimal">Minimal</option>
+      </select>
+      <h4>About</h4>
+      <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam<br/>Optimized for 240×320 viewport.</p>
+      <button onclick="openPage('homePage')">Back</button>
+    </div>
+
+    <!-- Help Page -->
+    <div id="helpPage" class="page hidden">
+      <h3>Help</h3>
+      <p>Goal: Get 3 in a row (horizontal, vertical, or diagonal).</p>
+      <p>Controls:</p>
+      <ul>
+        <li>Tap a cell</li>
+        <li>Keypad: 2=Up, 8=Down, 4=Left, 6=Right, 5=Drop</li>
+      </ul>
+      <p>Modes: Vs Computer or Local Multiplayer.</p>
+      <button onclick="openPage('homePage')">Back</button>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page hidden">
+      <h3>About</h3>
+      <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam</p>
+      <p>Optimized for 240×320 CloudPhone viewport.</p>
+      <button onclick="openPage('homePage')">Back</button>
+    </div>
+
+    <!-- Game Page -->
+    <div id="gamePage" class="page hidden">
       <div id="status">New game</div>
-      <div id="controls">
-        <select id="mode">
-          <option value="single">Vs Computer</option>
-          <option value="local">Local Multiplayer</option>
-        </select>
-        <select id="gridSize">
-          <option value="3" selected>3 × 3</option>
-          <option value="4">4 × 4</option>
-          <option value="5">5 × 5</option>
-        </select>
-        <select id="difficulty">
-          <option value="1">Easy</option>
-          <option value="3" selected>Normal</option>
-          <option value="6">Hard</option>
-        </select>
-        <select id="theme">
-          <option value="classic">Classic</option>
-          <option value="neon">Neon</option>
-          <option value="wood">Wood</option>
-          <option value="space">Space</option>
-          <option value="minimal">Minimal</option>
-        </select>
-        <button id="newBtn">New</button>
-      </div>
-    </header>
-
-    <main>
       <div id="board"></div>
-      <!-- Help & About overlays -->
-      <div id="helpPage" class="overlay hidden">
-        <h3>Help</h3>
-        <p>Goal: Get 3 in a row (horizontal, vertical, or diagonal).</p>
-        <ul>
-          <li>Tap a cell or use keypad (2/4/6/8 to move, 5 to drop).</li>
-          <li>Select grid size, theme, and difficulty from menu.</li>
-          <li>Modes: Vs Computer or Local Multiplayer.</li>
-        </ul>
-        <button onclick="closeOverlay('helpPage')">Close</button>
-      </div>
-      <div id="aboutPage" class="overlay hidden">
-        <h3>About</h3>
-        <p>TicTacToe CloudPhone<br/>Developed by Tasmon Islam</p>
-        <button onclick="closeOverlay('aboutPage')">Close</button>
-      </div>
-    </main>
-
-    <footer id="footer">
       <div id="score">X: 0  O: 0  Draws: 0</div>
-      <div id="nav">
-        <button onclick="openOverlay('helpPage')">Help</button>
-        <button onclick="openOverlay('aboutPage')">About</button>
-      </div>
-    </footer>
+      <button onclick="openPage('homePage')">Exit</button>
+    </div>
   </div>
   <script src="app.js"></script>
 </body>
