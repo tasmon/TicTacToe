@@ -30,7 +30,15 @@ html, body {
   overflow: hidden;
 }
 
-.page { width:100%; height:100%; padding:8px; box-sizing:border-box; }
+.page { 
+  width:100%; 
+  height:100%; 
+  padding:8px; 
+  box-sizing:border-box; 
+  display:flex; 
+  flex-direction:column; 
+  justify-content:flex-start; 
+}
 .hidden { display:none; }
 
 h2,h3,h4 { margin:6px 0; text-align:center; }
@@ -76,25 +84,28 @@ h2,h3,h4 { margin:6px 0; text-align:center; }
 }
 
 /* Buttons */
-button.primary {
+button.primary, button.secondary {
   width: 80%;
   margin: 6px auto;
   padding: 8px;
   border-radius: 6px;
-  background: var(--primary);
-  color: #fff;
   border: none;
   box-shadow: var(--shadow);
+  font-size: 13px;
 }
-button.secondary {
-  width: 80%;
-  margin: 6px auto;
-  padding: 8px;
-  border-radius: 6px;
-  background: #eee;
-  color: var(--accent);
-  border: none;
-  box-shadow: var(--shadow);
+button.primary { background: var(--primary); color: #fff; }
+button.secondary { background: #eee; color: var(--accent); }
+
+/* Actions alignment */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.actions.bottom {
+  margin-top: auto;
+  margin-bottom: 8px;
 }
 
 /* Game board */
@@ -121,21 +132,16 @@ button.secondary {
 .mark-o { color:var(--o-color); }
 .cell.selected { outline:2px solid var(--primary); }
 
-/* Game page actions */
-#gamePage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* Status and score */
+#status {
+  text-align:center;
+  font-size:13px;
+  margin:4px 0;
 }
-#gamePage .actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-#gamePage .actions button {
-  flex: 1;
-  max-width: 100px;
+#score {
+  text-align:center;
+  font-size:12px;
+  margin:4px 0;
 }
 
 /* Polished themes */
