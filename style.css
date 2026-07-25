@@ -1,0 +1,175 @@
+:root {
+  --app-w: 240px;
+  --app-h: 320px;
+  --bg: #fafafa;
+  --accent: #212121;
+  --primary: #1976d2;
+  --x-color: #e53935;
+  --o-color: #43a047;
+  --cell-bg: #ffffff;
+  --shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  font-family: "Roboto", Arial, sans-serif;
+  color: var(--accent);
+  overflow: hidden;
+}
+
+#app {
+  width: var(--app-w);
+  height: var(--app-h);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.page { 
+  width:100%; 
+  height:100%; 
+  padding:8px; 
+  box-sizing:border-box; 
+  display:flex; 
+  flex-direction:column; 
+}
+.hidden { display:none; }
+
+h2,h3,h4 { margin:6px 0; text-align:center; }
+
+/* Modern menu tiles */
+.menu-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 30px;
+  align-items: center;
+}
+.menu-grid button {
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.menu-grid button:active { transform: scale(0.95); }
+.menu-grid button:hover { background: #1565c0; }
+
+/* Form cards */
+.form-card {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  padding: 6px;
+  margin: 8px auto;
+  width: 85%;
+}
+.form-card label { display:block; font-size:12px; margin-bottom:4px; }
+.form-card select {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+/* Buttons */
+button.primary, button.secondary {
+  width: 80%;
+  margin: 6px auto;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: var(--shadow);
+  font-size: 13px;
+}
+button.primary { background: var(--primary); color: #fff; }
+button.secondary { background: #eee; color: var(--accent); }
+
+/* Actions alignment */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.actions.bottom {
+  margin-top: auto;
+  margin-bottom: 8px;
+}
+
+/* Game board */
+#board {
+  flex:1;
+  display:grid;
+  gap:4px;
+  width:100%;
+  height:70%;
+  margin-top:8px;
+}
+.cell {
+  background: var(--cell-bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size: calc(160px / var(--grid-size));
+  border-radius:4px;
+  box-shadow: var(--shadow);
+}
+.cell.disabled { opacity:0.6; }
+.mark-x { color:var(--x-color); }
+.mark-o { color:var(--o-color); }
+.cell.selected { outline:2px solid var(--primary); }
+
+/* Status and score */
+#status {
+  text-align:center;
+  font-size:13px;
+  margin:4px 0;
+}
+#score {
+  text-align:center;
+  font-size:12px;
+  margin:4px 0;
+}
+
+/* Content area for help/about/settings so Back button stays visible */
+.page .content {
+  flex:1;
+  overflow-y:auto;
+  font-size:12px;
+  margin-bottom:8px;
+}
+.page button.secondary {
+  margin-top:auto; /* anchor Back button at bottom */
+}
+
+/* Polished themes */
+.theme-classic { 
+  --bg:#fafafa; --primary:#1976d2; --x-color:#e53935; --o-color:#43a047; 
+}
+.theme-neon { 
+  --bg:linear-gradient(180deg,#0b0f1a,#1a1f3c); 
+  --primary:#00ffea; --x-color:#ff00d4; --o-color:#00ffea; 
+}
+.theme-wood { 
+  --bg:linear-gradient(180deg,#d7ccc8,#a1887f); 
+  --primary:#5b3a29; --x-color:#6b2e1f; --o-color:#2b5a3a; 
+}
+.theme-space { 
+  --bg:linear-gradient(180deg,#050814,#0d1b2a); 
+  --primary:#66ccff; --x-color:#ffcc00; --o-color:#66ccff; 
+}
+.theme-minimal { 
+  --bg:#ffffff; --primary:#222; --x-color:#111; --o-color:#777; 
+}
