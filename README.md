@@ -3,11 +3,9 @@
 A compact TicTacToe game designed for CloudPhone devices (240×320 resolution).  
 Features include:
 - **Game Modes**: Play vs Computer (AI) or local pass‑and‑play.  
-- **Board Sizes**: 3×3, 4×4, and 5×5.  
-- **Themes & Sound**: Switch between multiple themes and enjoy lightweight sound effects.  
-- **Touch-Friendly**: Optimized for CloudPhone’s portrait layout.  
-
-<img width="223" height="508" alt="image" src="https://github.com/user-attachments/assets/0df173b9-b2bc-4164-85d6-3b5ccc0ff792" />
+- **Board Sizes**: 3×3, 4×4, and 5×5.
+- 
+<img width="223" height="508" alt="626624787-0df173b9-b2bc-4164-85d6-3b5ccc0ff792" src="https://github.com/user-attachments/assets/13a67c88-8715-4d1e-8dbb-5b94ea50ce4a" />
 
 ## Add to CloudPhone
 1. Go to [CloudPhone Developer Page](https://www.cloudfone.com/my).  
@@ -17,6 +15,4 @@ Features include:
 4. Upload icons if required.  
 5. Save and refresh — **TicTacToe** will appear on your CloudPhone.
 
-#### License and credits
-**License**: MIT — see `LICENSE` file.  
 **Credits**: Game logic, UI, and assets in this repo by Tasmon Islam
