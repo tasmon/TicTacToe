@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=240, height=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Help - TicTacToe</title>
+<link rel="icon" href="icon-40.png" sizes="40x40" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="app-header"><h1>Help</h1></header>
+
+  <main id="screens">
+    <section class="screen active">
+      <div class="help-section">
+        <h3>Controls</h3>
+        <table class="key-table">
+          <tr><td>2 / 8</td><td>Move cursor Up / Down</td></tr>
+          <tr><td>4 / 6</td><td>Move cursor Left / Right</td></tr>
+          <tr><td>5 / Enter</td><td>Place mark / Select</td></tr>
+          <tr><td>0</td><td>Pause game</td></tr>
+          <tr><td>Left Softkey</td><td>Menu (in-game)</td></tr>
+          <tr><td>Right Softkey</td><td>Back</td></tr>
+        </table>
+      </div>
+
+      <div class="help-section">
+        <h3>How to Play</h3>
+        <p>Take turns placing X and O marks on the 3x3 grid. The first
+        player to line up three marks in a row, column, or diagonal wins.
+        If all nine cells fill with no winner, it's a draw.</p>
+      </div>
+
+      <div class="help-section">
+        <h3>Game Modes</h3>
+        <p><b>2 Player</b> - take turns on the same device.</p>
+        <p><b>Vs CPU</b> - play against the computer at Easy, Medium, or
+        Hard difficulty. Hard mode plays perfectly and cannot be beaten,
+        only tied.</p>
+      </div>
+
+      <div class="help-section">
+        <h3>Pause Menu</h3>
+        <p>Press 0 or the Left Softkey during a game to pause. From there
+        you can resume, restart, open Settings/Help/About, or return to
+        the Main Menu.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="softkey-bar">
+    <span id="softkey-left" class="softkey" tabindex="-1"></span>
+    <span id="softkey-center" class="softkey" tabindex="-1"></span>
+    <span id="softkey-right" class="softkey" tabindex="-1">Back</span>
+  </footer>
+</div>
+
+<script src="common.js"></script>
+<script>
+  (function () {
+    var CP = window.CloudPhone;
+    CP.applyTheme(CP.loadSettings().theme);
+    CP.initSecondaryPageRSK('index.html');
+  })();
+</script>
+</body>
+</html>

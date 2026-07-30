@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=240, height=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TicTacToe</title>
+<link rel="icon" href="icon-40.png" sizes="40x40" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="app-header"><h1>TicTacToe</h1></header>
+
+  <main id="screens">
+    <section id="screen-title" class="screen active">
+      <ul id="title-menu" class="menu" role="menu">
+        <li class="menu-item" data-action="pvp">2 Player</li>
+        <li class="menu-item" data-action="cpu">Vs CPU</li>
+        <li class="menu-item" data-action="settings">Settings</li>
+        <li class="menu-item" data-action="help">Help</li>
+        <li class="menu-item" data-action="about">About</li>
+      </ul>
+      <p id="stats-line" class="stats-line"></p>
+    </section>
+
+    <section id="screen-difficulty" class="screen">
+      <h2>Select Difficulty</h2>
+      <ul id="difficulty-menu" class="menu" role="menu">
+        <li class="menu-item" data-difficulty="easy">Easy</li>
+        <li class="menu-item" data-difficulty="medium">Medium</li>
+        <li class="menu-item" data-difficulty="hard">Hard</li>
+      </ul>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <div id="turn-indicator" class="turn-indicator"></div>
+      <div id="board" class="board" role="grid" aria-label="Tic Tac Toe board"></div>
+    </section>
+  </main>
+
+  <div id="overlay-pause" class="overlay" hidden>
+    <div class="overlay-box">
+      <h2>Paused</h2>
+      <ul id="pause-menu" class="menu" role="menu">
+        <li class="menu-item" data-action="resume">Resume</li>
+        <li class="menu-item" data-action="restart">Restart</li>
+        <li class="menu-item" data-action="settings">Settings</li>
+        <li class="menu-item" data-action="help">Help</li>
+        <li class="menu-item" data-action="about">About</li>
+        <li class="menu-item" data-action="menu">Main Menu</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="overlay-gameover" class="overlay" hidden>
+    <div class="overlay-box">
+      <h2 id="gameover-title">Game Over</h2>
+      <p id="gameover-message"></p>
+      <ul id="gameover-menu" class="menu" role="menu">
+        <li class="menu-item" data-action="again">Play Again</li>
+        <li class="menu-item" data-action="menu">Main Menu</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer id="softkey-bar">
+    <span id="softkey-left" class="softkey" tabindex="-1"></span>
+    <span id="softkey-center" class="softkey" tabindex="-1"></span>
+    <span id="softkey-right" class="softkey" tabindex="-1"></span>
+  </footer>
+</div>
+
+<script src="common.js"></script>
+<script src="ai.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

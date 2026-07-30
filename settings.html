@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=240, height=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Settings - TicTacToe</title>
+<link rel="icon" href="icon-40.png" sizes="40x40" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="app-header"><h1>Settings</h1></header>
+
+  <main id="screens">
+    <section class="screen active">
+      <ul id="settings-menu" class="menu" role="menu">
+        <li class="menu-item" data-key="theme">
+          <span class="title">Theme</span>
+          <span class="description" id="value-theme"></span>
+        </li>
+        <li class="menu-item" data-key="difficulty">
+          <span class="title">Default Difficulty</span>
+          <span class="description" id="value-difficulty"></span>
+        </li>
+        <li class="menu-item" data-key="sound">
+          <span class="title">Sound</span>
+          <span class="description" id="value-sound"></span>
+        </li>
+        <li class="menu-item" data-key="reset">
+          <span class="title">Reset Stats</span>
+          <span class="description" id="value-stats"></span>
+        </li>
+      </ul>
+      <p class="hint">Use D-pad Up/Down to move, 5/Enter to change</p>
+    </section>
+  </main>
+
+  <div id="overlay-confirm" class="overlay" hidden>
+    <div class="overlay-box">
+      <h2>Reset Stats?</h2>
+      <p>This clears your win, loss and draw counts.</p>
+      <ul id="confirm-menu" class="menu" role="menu">
+        <li class="menu-item" data-action="yes">Yes, Reset</li>
+        <li class="menu-item" data-action="no">Cancel</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer id="softkey-bar">
+    <span id="softkey-left" class="softkey" tabindex="-1"></span>
+    <span id="softkey-center" class="softkey" tabindex="-1">Select</span>
+    <span id="softkey-right" class="softkey" tabindex="-1">Back</span>
+  </footer>
+</div>
+
+<script src="common.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>

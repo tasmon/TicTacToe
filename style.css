@@ -1,0 +1,303 @@
+/*
+ * style.css - Shared styles for TicTacToe (CloudPhone widget)
+ * Layout mirrors the CloudPhone platform convention: fixed-position
+ * header/footer, scrollable content area between them, theme colors
+ * driven by [data-theme] custom properties on <html>.
+ */
+
+/* ---------- Theme palettes ---------- */
+:root,
+[data-theme="classic"] {
+  --bg: #000000;
+  --fg: #ffffff;
+  --accent: #1971e6;
+  --x-color: #ff6b35;
+  --o-color: #4fc3f7;
+  --grid: #444444;
+  --muted: #999999;
+  --overlay-bg: rgba(0, 0, 0, 0.88);
+}
+
+[data-theme="midnight"] {
+  --bg: #0a0a14;
+  --fg: #e6e6ff;
+  --accent: #6c5ce7;
+  --x-color: #ff4fa3;
+  --o-color: #9b7bff;
+  --grid: #33334d;
+  --muted: #8888aa;
+  --overlay-bg: rgba(10, 10, 20, 0.92);
+}
+
+[data-theme="retro"] {
+  --bg: #000000;
+  --fg: #33ff33;
+  --accent: #1c7a1c;
+  --x-color: #55ff55;
+  --o-color: #ffb000;
+  --grid: #1f4d1f;
+  --muted: #2e8b2e;
+  --overlay-bg: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="ocean"] {
+  --bg: #012a36;
+  --fg: #eafffb;
+  --accent: #00bcd4;
+  --x-color: #ff7f66;
+  --o-color: #66ffe0;
+  --grid: #0a4a5c;
+  --muted: #6fb8c4;
+  --overlay-bg: rgba(1, 20, 26, 0.92);
+}
+
+/* ---------- Reset / base ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Roboto', Arial, sans-serif;
+  user-select: none;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+h1, h2, p { margin: 0; }
+
+/* ---------- Header ---------- */
+#app-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 36px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+#app-header h1 {
+  font-size: 16pt;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 92%;
+}
+
+/* ---------- Footer / softkey bar ---------- */
+#softkey-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 36px;
+  display: flex;
+  background: var(--bg);
+  border-top: 1px solid var(--grid);
+  z-index: 2;
+}
+.softkey {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 9pt;
+  color: var(--fg);
+  padding: 0 6pt;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#softkey-left { justify-content: flex-start; }
+#softkey-center { justify-content: center; text-transform: uppercase; }
+#softkey-right { justify-content: flex-end; }
+
+/* ---------- Content area ---------- */
+#screens {
+  position: absolute;
+  top: 36px; bottom: 36px; left: 0; right: 0;
+  overflow-y: auto;
+  padding: 6pt 8pt;
+}
+.screen { display: none; }
+.screen.active { display: block; }
+
+section.screen h2 {
+  font-size: 12pt;
+  text-align: center;
+  margin: 6pt 0;
+}
+
+/* ---------- Menus ---------- */
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-item {
+  padding: 7pt 6pt;
+  font-size: 11pt;
+  cursor: pointer;
+}
+.menu-item .title {
+  display: block;
+  font-weight: bold;
+  font-size: 11pt;
+}
+.menu-item .description {
+  display: block;
+  font-size: 9pt;
+  color: var(--muted);
+}
+.menu-item.focused {
+  background: var(--accent);
+  color: #ffffff;
+}
+.menu-item.focused .description { color: #ffffff; }
+
+.stats-line {
+  text-align: center;
+  margin-top: 10pt;
+  font-size: 9pt;
+  color: var(--muted);
+}
+.hint {
+  text-align: center;
+  font-size: 8pt;
+  color: var(--muted);
+  margin-top: 8pt;
+}
+
+/* ---------- TicTacToe board ---------- */
+.turn-indicator {
+  text-align: center;
+  font-size: 10pt;
+  margin-bottom: 6pt;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  width: 96%;
+  max-width: 180px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+.cell {
+  border: 1px solid var(--grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20pt;
+  font-weight: bold;
+  background: transparent;
+}
+.cell.mark-x { color: var(--x-color); }
+.cell.mark-o { color: var(--o-color); }
+.cell.cursor { border-color: var(--accent); border-width: 2px; }
+.cell.win { background: var(--accent); }
+
+/* ---------- Overlays ---------- */
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.overlay[hidden] { display: none; }
+.overlay-box {
+  width: 88%;
+  max-width: 200px;
+  text-align: center;
+}
+.overlay-box h2 {
+  font-size: 13pt;
+  margin-bottom: 6pt;
+}
+.overlay-box p {
+  font-size: 9pt;
+  color: var(--muted);
+  margin-bottom: 8pt;
+}
+.overlay-box .menu { text-align: left; }
+
+/* ---------- About page ---------- */
+.about-box {
+  text-align: center;
+  padding-top: 10pt;
+}
+.about-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 8pt;
+  display: block;
+  image-rendering: pixelated;
+}
+.about-box h2 { font-size: 14pt; margin-bottom: 4pt; }
+.about-box .version { font-size: 9pt; color: var(--muted); margin-bottom: 8pt; }
+.about-box .developer { font-size: 10pt; margin-bottom: 10pt; }
+.about-box .blurb { font-size: 9pt; color: var(--muted); line-height: 1.4; }
+
+/* ---------- Help page ---------- */
+.help-section { margin-bottom: 10pt; }
+.help-section h3 { font-size: 10pt; margin-bottom: 3pt; color: var(--accent); }
+.help-section p, .help-section li { font-size: 9pt; line-height: 1.4; }
+.key-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+.key-table td {
+  padding: 3pt 2pt;
+  border-bottom: 1px solid var(--grid);
+}
+.key-table td:first-child {
+  font-weight: bold;
+  color: var(--accent);
+  white-space: nowrap;
+  width: 34%;
+}
+
+/* ---------- QVGA (240x320-class) ---------- */
+@media only screen and (min-width: 129px) and (max-width: 240px) {
+  #app-header { height: 32px; }
+  #app-header h1 { font-size: 14pt; }
+  #softkey-bar { height: 32px; }
+  .softkey { font-size: 8pt; }
+  #screens { top: 32px; bottom: 32px; }
+}
+
+/* ---------- QQVGA (128x160-class) ---------- */
+@media only screen and (max-width: 128px) {
+  #app-header { height: 20px; }
+  #app-header h1 { font-size: 9pt; }
+  #softkey-bar { height: 20px; }
+  .softkey { font-size: 6.5pt; padding: 0 3pt; }
+  #screens { top: 20px; bottom: 20px; padding: 3pt 4pt; }
+  .menu-item { padding: 4pt 3pt; font-size: 8pt; }
+  .menu-item .title { font-size: 8pt; }
+  .menu-item .description { font-size: 6.5pt; }
+  .board { max-width: 110px; }
+  .cell { font-size: 13pt; }
+  .turn-indicator { font-size: 7pt; }
+  .stats-line, .hint { font-size: 6.5pt; }
+  .overlay-box h2 { font-size: 10pt; }
+  .overlay-box p { font-size: 7pt; }
+  .about-icon { width: 40px; height: 40px; }
+  .about-box h2 { font-size: 10pt; }
+  .about-box .version, .about-box .blurb { font-size: 7pt; }
+  .help-section h3 { font-size: 8pt; }
+  .help-section p, .help-section li, .key-table { font-size: 7pt; }
+}
