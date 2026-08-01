@@ -17,11 +17,11 @@
 (function (global) {
   'use strict';
 
-  var WIN_LENGTH_BY_SIZE = { 3: 3, 4: 4, 5: 4 };
+  // Win condition is always classic 3-in-a-row, regardless of board size.
   var SEARCH_DEPTH_BY_SIZE = { 3: 9, 4: 4, 5: 3 };
 
   function getWinLength(size) {
-    return WIN_LENGTH_BY_SIZE[size] || 3;
+    return 3;
   }
 
   // ---- Win line generation (rows, columns, both diagonals), cached per size ----

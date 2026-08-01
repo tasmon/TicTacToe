@@ -31,13 +31,11 @@
   function loadSettings() {
     var theme = localStorage.getItem(STORAGE_PREFIX + 'theme') || 'classic';
     var difficulty = localStorage.getItem(STORAGE_PREFIX + 'difficulty') || 'medium';
-    var soundRaw = localStorage.getItem(STORAGE_PREFIX + 'sound');
-    var sound = soundRaw === null ? true : soundRaw === '1';
     var gridSize = parseInt(localStorage.getItem(STORAGE_PREFIX + 'gridSize'), 10);
     if (THEMES.indexOf(theme) === -1) theme = 'classic';
     if (DIFFICULTIES.indexOf(difficulty) === -1) difficulty = 'medium';
     if (GRID_SIZES.indexOf(gridSize) === -1) gridSize = 3;
-    return { theme: theme, difficulty: difficulty, sound: sound, gridSize: gridSize };
+    return { theme: theme, difficulty: difficulty, gridSize: gridSize };
   }
 
   function saveSetting(key, value) {
@@ -71,29 +69,6 @@
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-  }
-
-  // ---- Web Audio beep (gated by sound setting) ----
-  var audioCtx = null;
-  function beep(freq, duration, type) {
-    var settings = loadSettings();
-    if (!settings.sound) return;
-    freq = freq || 440;
-    duration = duration || 100;
-    type = type || 'square';
-    try {
-      audioCtx = audioCtx || new (global.AudioContext || global.webkitAudioContext)();
-      var osc = audioCtx.createOscillator();
-      var gain = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.value = freq;
-      gain.gain.value = 0.15;
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration / 1000);
-      osc.stop(audioCtx.currentTime + duration / 1000 + 0.02);
-    } catch (e) { /* audio unsupported - ignore */ }
   }
 
   // ---- Focus recovery: keep receiving key events after overlays/pickers ----
@@ -147,7 +122,6 @@
     saveStats: saveStats,
     resetStats: resetStats,
     applyTheme: applyTheme,
-    beep: beep,
     initSecondaryPageRSK: initSecondaryPageRSK,
     setSoftkeyLabels: setSoftkeyLabels
   };

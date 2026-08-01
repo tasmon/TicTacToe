@@ -58,6 +58,19 @@
   var screenTitle = document.getElementById('screen-title');
   var screenDifficulty = document.getElementById('screen-difficulty');
   var screenGame = document.getElementById('screen-game');
+  var softkeyRight = document.getElementById('softkey-right');
+
+  // On real CloudPhone hardware, RSK is unintercepted here by design - the
+  // platform itself closes the widget when there's no history to go back
+  // to. This click handler is just best-effort parity for the on-screen
+  // label when previewing/testing in an ordinary desktop browser tab.
+  if (softkeyRight) {
+    softkeyRight.addEventListener('click', function () {
+      if (state.screen === 'title' && !state.overlay) {
+        try { window.close(); } catch (e) { /* not closable from script - expected */ }
+      }
+    });
+  }
 
   // ---- Board cells are (re)built whenever a game starts, since size can change ----
   var cellEls = [];
@@ -123,7 +136,7 @@
       state.titleIndex = 0;
       renderTitleMenu();
       updateStatsLine();
-      CP.setSoftkeyLabels('', '', '');
+      CP.setSoftkeyLabels('', 'Select', 'Exit');
     } else if (screen === 'difficulty') {
       state.difficultyIndex = 0;
       renderDifficultyMenu();
@@ -235,7 +248,6 @@
   function placeMark(idx) {
     if (state.board[idx]) return;
     state.board[idx] = state.current;
-    CP.beep(state.current === 'X' ? 660 : 440, 80, 'square');
     var result = AI.checkWinner(state.board, state.gridSize);
     if (result) {
       finishGame(result);
@@ -265,24 +277,20 @@
       gameoverTitle.textContent = 'Draw!';
       gameoverMessage.textContent = "It's a tie game.";
       stats.draws++;
-      CP.beep(300, 200, 'sine');
     } else if (state.mode === 'cpu') {
       if (result.winner === state.playerMark) {
         gameoverTitle.textContent = 'You Win!';
         gameoverMessage.textContent = 'Great job beating the CPU.';
         stats.wins++;
-        CP.beep(880, 250, 'sine');
       } else {
         gameoverTitle.textContent = 'CPU Wins';
         gameoverMessage.textContent = 'Better luck next time.';
         stats.losses++;
-        CP.beep(200, 300, 'sawtooth');
       }
     } else {
       gameoverTitle.textContent = result.winner + ' Wins!';
       gameoverMessage.textContent = 'Player ' + result.winner + ' takes the round.';
       stats.pvp = (stats.pvp || 0) + 1;
-      CP.beep(880, 250, 'sine');
     }
     CP.saveStats(stats);
     window.setTimeout(function () { pushOverlay('gameover'); }, 550);

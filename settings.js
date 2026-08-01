@@ -12,7 +12,7 @@
   var settings = CP.loadSettings();
   CP.applyTheme(settings.theme);
 
-  var items = ['theme', 'gridSize', 'difficulty', 'sound', 'reset'];
+  var items = ['theme', 'gridSize', 'difficulty', 'reset'];
   var focusedIndex = 0;
   var confirmOpen = false;
   var confirmIndex = 0;
@@ -26,14 +26,12 @@
   var valueTheme = document.getElementById('value-theme');
   var valueGridSize = document.getElementById('value-gridSize');
   var valueDifficulty = document.getElementById('value-difficulty');
-  var valueSound = document.getElementById('value-sound');
   var valueStats = document.getElementById('value-stats');
 
   function refreshValues() {
     valueTheme.textContent = CP.THEME_LABELS[settings.theme];
     valueGridSize.textContent = CP.GRID_SIZE_LABELS[settings.gridSize];
     valueDifficulty.textContent = CP.DIFFICULTY_LABELS[settings.difficulty];
-    valueSound.textContent = settings.sound ? 'On' : 'Off';
     var stats = CP.loadStats();
     valueStats.textContent = 'W' + stats.wins + '/L' + stats.losses + '/D' + stats.draws;
   }
@@ -66,10 +64,6 @@
     } else if (key === 'difficulty') {
       settings.difficulty = cycleValue(CP.DIFFICULTIES, settings.difficulty);
       CP.saveSetting('difficulty', settings.difficulty);
-    } else if (key === 'sound') {
-      settings.sound = !settings.sound;
-      CP.saveSetting('sound', settings.sound);
-      if (settings.sound) CP.beep(660, 90, 'square');
     } else if (key === 'reset') {
       confirmOpen = true;
       confirmIndex = 1; // default focus on Cancel to avoid accidental resets
