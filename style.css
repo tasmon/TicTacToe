@@ -184,11 +184,9 @@ section.screen h2 {
 }
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   gap: 4px;
   width: 96%;
-  max-width: 180px;
+  max-width: 190px;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
 }
@@ -197,10 +195,12 @@ section.screen h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20pt;
   font-weight: bold;
   background: transparent;
 }
+.board[data-size="3"] .cell { font-size: 20pt; }
+.board[data-size="4"] .cell { font-size: 15pt; }
+.board[data-size="5"] .cell { font-size: 11pt; }
 .cell.mark-x { color: var(--x-color); }
 .cell.mark-o { color: var(--o-color); }
 .cell.cursor { border-color: var(--accent); border-width: 2px; }
@@ -290,7 +290,9 @@ section.screen h2 {
   .menu-item .title { font-size: 8pt; }
   .menu-item .description { font-size: 6.5pt; }
   .board { max-width: 110px; }
-  .cell { font-size: 13pt; }
+  .board[data-size="3"] .cell { font-size: 13pt; }
+  .board[data-size="4"] .cell { font-size: 9pt; }
+  .board[data-size="5"] .cell { font-size: 7pt; }
   .turn-indicator { font-size: 7pt; }
   .stats-line, .hint { font-size: 6.5pt; }
   .overlay-box h2 { font-size: 10pt; }

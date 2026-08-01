@@ -25,15 +25,19 @@
   var THEME_LABELS = { classic: 'Classic', midnight: 'Midnight', retro: 'Retro', ocean: 'Ocean' };
   var DIFFICULTIES = ['easy', 'medium', 'hard'];
   var DIFFICULTY_LABELS = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
+  var GRID_SIZES = [3, 4, 5];
+  var GRID_SIZE_LABELS = { 3: '3x3', 4: '4x4', 5: '5x5' };
 
   function loadSettings() {
     var theme = localStorage.getItem(STORAGE_PREFIX + 'theme') || 'classic';
     var difficulty = localStorage.getItem(STORAGE_PREFIX + 'difficulty') || 'medium';
     var soundRaw = localStorage.getItem(STORAGE_PREFIX + 'sound');
     var sound = soundRaw === null ? true : soundRaw === '1';
+    var gridSize = parseInt(localStorage.getItem(STORAGE_PREFIX + 'gridSize'), 10);
     if (THEMES.indexOf(theme) === -1) theme = 'classic';
     if (DIFFICULTIES.indexOf(difficulty) === -1) difficulty = 'medium';
-    return { theme: theme, difficulty: difficulty, sound: sound };
+    if (GRID_SIZES.indexOf(gridSize) === -1) gridSize = 3;
+    return { theme: theme, difficulty: difficulty, sound: sound, gridSize: gridSize };
   }
 
   function saveSetting(key, value) {
@@ -135,6 +139,8 @@
     THEME_LABELS: THEME_LABELS,
     DIFFICULTIES: DIFFICULTIES,
     DIFFICULTY_LABELS: DIFFICULTY_LABELS,
+    GRID_SIZES: GRID_SIZES,
+    GRID_SIZE_LABELS: GRID_SIZE_LABELS,
     loadSettings: loadSettings,
     saveSetting: saveSetting,
     loadStats: loadStats,

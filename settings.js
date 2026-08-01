@@ -12,7 +12,7 @@
   var settings = CP.loadSettings();
   CP.applyTheme(settings.theme);
 
-  var items = ['theme', 'difficulty', 'sound', 'reset'];
+  var items = ['theme', 'gridSize', 'difficulty', 'sound', 'reset'];
   var focusedIndex = 0;
   var confirmOpen = false;
   var confirmIndex = 0;
@@ -24,12 +24,14 @@
   var confirmItems = Array.prototype.slice.call(confirmMenu.children);
 
   var valueTheme = document.getElementById('value-theme');
+  var valueGridSize = document.getElementById('value-gridSize');
   var valueDifficulty = document.getElementById('value-difficulty');
   var valueSound = document.getElementById('value-sound');
   var valueStats = document.getElementById('value-stats');
 
   function refreshValues() {
     valueTheme.textContent = CP.THEME_LABELS[settings.theme];
+    valueGridSize.textContent = CP.GRID_SIZE_LABELS[settings.gridSize];
     valueDifficulty.textContent = CP.DIFFICULTY_LABELS[settings.difficulty];
     valueSound.textContent = settings.sound ? 'On' : 'Off';
     var stats = CP.loadStats();
@@ -58,6 +60,9 @@
       settings.theme = cycleValue(CP.THEMES, settings.theme);
       CP.saveSetting('theme', settings.theme);
       CP.applyTheme(settings.theme);
+    } else if (key === 'gridSize') {
+      settings.gridSize = cycleValue(CP.GRID_SIZES, settings.gridSize);
+      CP.saveSetting('gridSize', settings.gridSize);
     } else if (key === 'difficulty') {
       settings.difficulty = cycleValue(CP.DIFFICULTIES, settings.difficulty);
       CP.saveSetting('difficulty', settings.difficulty);

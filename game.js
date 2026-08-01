@@ -21,6 +21,7 @@
     overlay: null,         // null | 'pause' | 'gameover'
     mode: null,            // 'pvp' | 'cpu'
     difficulty: 'medium',
+    gridSize: 3,
     board: new Array(9).fill(null),
     current: 'X',
     playerMark: 'X',
@@ -36,6 +37,7 @@
   var settings = CP.loadSettings();
   CP.applyTheme(settings.theme);
   state.difficulty = settings.difficulty;
+  state.gridSize = settings.gridSize;
 
   var titleItems = ['pvp', 'cpu', 'settings', 'help', 'about'];
   var difficultyItems = ['easy', 'medium', 'hard'];
@@ -57,17 +59,24 @@
   var screenDifficulty = document.getElementById('screen-difficulty');
   var screenGame = document.getElementById('screen-game');
 
-  // ---- Build the 9 board cells once ----
-  for (var i = 0; i < 9; i++) {
-    (function (idx) {
-      var cell = document.createElement('div');
-      cell.className = 'cell';
-      cell.dataset.index = idx;
-      cell.addEventListener('click', function () { onCellActivate(idx); });
-      boardEl.appendChild(cell);
-    })(i);
+  // ---- Board cells are (re)built whenever a game starts, since size can change ----
+  var cellEls = [];
+  function buildBoardCells(size) {
+    boardEl.innerHTML = '';
+    boardEl.dataset.size = size;
+    boardEl.style.gridTemplateColumns = 'repeat(' + size + ', 1fr)';
+    boardEl.style.gridTemplateRows = 'repeat(' + size + ', 1fr)';
+    for (var i = 0; i < size * size; i++) {
+      (function (idx) {
+        var cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.index = idx;
+        cell.addEventListener('click', function () { onCellActivate(idx); });
+        boardEl.appendChild(cell);
+      })(i);
+    }
+    cellEls = Array.prototype.slice.call(boardEl.children);
   }
-  var cellEls = Array.prototype.slice.call(boardEl.children);
 
   function bindMenuClicks(menuEl, items, handler) {
     Array.prototype.slice.call(menuEl.children).forEach(function (li, idx) {
@@ -187,12 +196,18 @@
       state.difficulty = difficulty;
       CP.saveSetting('difficulty', difficulty);
     }
-    state.board = new Array(9).fill(null);
+    // Grid size is a persistent setting (changed via Settings), re-read fresh
+    // each time a new game starts so a change made from the Pause menu takes
+    // effect on the very next game.
+    state.gridSize = CP.loadSettings().gridSize;
+    var cellCount = state.gridSize * state.gridSize;
+    state.board = new Array(cellCount).fill(null);
     state.current = 'X';
     state.playerMark = 'X';
     state.cpuMark = 'O';
-    state.boardCursor = 4;
+    state.boardCursor = Math.floor(cellCount / 2);
     state.winLine = null;
+    buildBoardCells(state.gridSize);
   }
 
   function renderBoard() {
@@ -221,7 +236,7 @@
     if (state.board[idx]) return;
     state.board[idx] = state.current;
     CP.beep(state.current === 'X' ? 660 : 440, 80, 'square');
-    var result = AI.checkWinner(state.board);
+    var result = AI.checkWinner(state.board, state.gridSize);
     if (result) {
       finishGame(result);
       return;
@@ -236,7 +251,7 @@
 
   function cpuMove() {
     if (state.screen !== 'game' || state.overlay) return;
-    var move = AI.getCpuMove(state.board, state.cpuMark, state.playerMark, state.difficulty);
+    var move = AI.getCpuMove(state.board, state.cpuMark, state.playerMark, state.difficulty, state.gridSize);
     if (move === null || move === undefined) return;
     state.boardCursor = move;
     placeMark(move);
@@ -372,12 +387,13 @@
     }
     if (state.screen === 'game' && !state.overlay) {
       if (state.mode === 'cpu' && state.current !== state.playerMark) return;
+      var n = state.gridSize;
       var c = state.boardCursor;
-      var row = Math.floor(c / 3), col = c % 3;
-      if (dir === 'up') c = ((row + 2) % 3) * 3 + col;
-      if (dir === 'down') c = ((row + 1) % 3) * 3 + col;
-      if (dir === 'left') c = row * 3 + ((col + 2) % 3);
-      if (dir === 'right') c = row * 3 + ((col + 1) % 3);
+      var row = Math.floor(c / n), col = c % n;
+      if (dir === 'up') c = ((row + n - 1) % n) * n + col;
+      if (dir === 'down') c = ((row + 1) % n) * n + col;
+      if (dir === 'left') c = row * n + ((col + n - 1) % n);
+      if (dir === 'right') c = row * n + ((col + 1) % n);
       state.boardCursor = c;
       renderBoard();
     }
